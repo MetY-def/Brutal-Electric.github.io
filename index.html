@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Brutal Electric – Streamer Crew</title>
-  <script src="https://embed.twitch.tv/embed/v1.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
@@ -156,66 +155,6 @@
     .sec-title .acc { color: var(--accent); }
     .sec-note { font-size: 13px; color: var(--muted); }
 
-    /* ── STREAM GRID ── */
-    .streams-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 1rem;
-    }
-    .stream-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      transition: border-color 0.2s, transform 0.18s;
-    }
-    .stream-card:hover { border-color: var(--border2); transform: translateY(-2px); }
-    .stream-card.is-live { border-color: rgba(255,79,79,0.35); }
-    .stream-embed { width: 100%; aspect-ratio: 16/9; background: #000; }
-    .stream-embed iframe { width: 100%; height: 100%; border: none; display: block; }
-    .stream-embed-fallback {
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 8px; background: #0d0d0f;
-      color: var(--muted); font-size: 13px;
-    }
-    .stream-meta {
-      padding: 0.85rem 1rem;
-      display: flex; gap: 10px; align-items: flex-start;
-    }
-    .s-avatar {
-      width: 36px; height: 36px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-head); font-size: 15px;
-      flex-shrink: 0; letter-spacing: 0.02em;
-    }
-    .s-info { flex: 1; min-width: 0; }
-    .s-name-row { display: flex; align-items: center; gap: 7px; }
-    .s-name { font-size: 14px; font-weight: 500; }
-    .s-live-badge {
-      font-size: 9.5px; font-weight: 600; letter-spacing: 0.07em;
-      background: var(--live-bg); color: var(--live);
-      border: 1px solid rgba(255,79,79,0.3);
-      padding: 2px 6px; border-radius: 20px; display: none;
-    }
-    .s-desc { font-size: 12px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .s-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 5px; }
-    .s-cat { font-size: 11.5px; color: var(--accent); font-weight: 400; }
-    .s-link a {
-      font-size: 11.5px; color: var(--muted); text-decoration: none;
-      transition: color 0.15s;
-    }
-    .s-link a:hover { color: var(--accent); }
-
-    .no-live {
-      grid-column: 1 / -1;
-      border: 1px dashed var(--border2);
-      border-radius: var(--radius-lg);
-      padding: 3rem; text-align: center;
-      color: var(--muted); font-size: 14px;
-    }
-
     /* ── MEMBERS ── */
     .members-grid {
       display: grid;
@@ -256,6 +195,85 @@
     /* ── DIVIDER ── */
     .hr { height: 1px; background: var(--border); margin: 0.5rem 0; }
 
+    /* ── ABOUT / WERTE ── */
+    .about-lead {
+      font-size: 15px; color: var(--muted); font-weight: 300;
+      line-height: 1.8; max-width: 680px; margin-bottom: 2.25rem;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .value-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.4rem;
+      transition: border-color 0.2s, transform 0.18s;
+    }
+    .value-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .value-icon {
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      background: rgba(232,255,71,0.08);
+      border: 1px solid rgba(232,255,71,0.18);
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+    .value-title {
+      font-family: var(--font-head);
+      font-size: 1.15rem; letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .value-text {
+      font-size: 13px; color: var(--muted); font-weight: 300;
+      line-height: 1.65;
+    }
+
+    /* ── JOIN ── */
+    .join-card {
+      position: relative;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2.5rem;
+      overflow: hidden;
+      text-align: center;
+    }
+    .join-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(232,255,71,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .join-content { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; }
+    .join-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 5vw, 3rem);
+      letter-spacing: 0.03em;
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+    }
+    .join-title .accent { color: var(--accent); }
+    .join-text {
+      font-size: 14.5px; color: var(--muted); font-weight: 300;
+      line-height: 1.7; margin-bottom: 2rem;
+    }
+    .join-actions {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .join-btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-body); font-size: 14px; font-weight: 500;
+      color: var(--bg); background: var(--accent);
+      text-decoration: none;
+      padding: 12px 28px; border-radius: 8px;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .join-btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+    .join-server {
+      font-size: 12.5px; color: var(--muted); letter-spacing: 0.02em;
+    }
+
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
@@ -292,8 +310,9 @@
         <span id="live-count-text">lädt…</span>
       </div>
       <div class="nav-links">
-        <a href="#streams">Streams</a>
+        <a href="#about">Über uns</a>
         <a href="#crew">Crew</a>
+        <a href="#join">Mitmachen</a>
       </div>
     </div>
   </div>
@@ -325,14 +344,47 @@
     </div>
   </section>
 
-  <!-- STREAMS -->
-  <section class="section" id="streams">
+
+  <!-- ABOUT / WERTE -->
+  <section class="section" id="about">
     <div class="sec-head">
-      <div class="sec-title">LIVE <span class="acc">STREAMS</span></div>
-      <div class="sec-note" id="live-sub">wird geladen…</div>
+      <div class="sec-title">WER WIR <span class="acc">SIND</span></div>
     </div>
-    <div class="streams-grid" id="streams-container"></div>
+    <p class="about-lead">
+      Brutal Electric ist kein Label, keine Agentur, kein Vertrag mit Kleingedrucktem.
+      Wir sind einfach eine Hand voll Streamer, die sich gegenseitig pushen, statt
+      gegeneinander zu konkurrieren. Egal ob Affiliate, Partner oder noch ganz am
+      Anfang — bei uns zählt, dass du Bock hast und ehrlich streamst.
+    </p>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">⚡</div>
+        <h3 class="value-title">Unabhängig</h3>
+        <p class="value-text">
+          Kein Vertrag, keine Verpflichtungen, kein Druck. Jeder streamt sein
+          eigenes Ding — wir sind einfach die Crew im Hintergrund.
+        </p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <h3 class="value-title">Wir raiden uns gegenseitig</h3>
+        <p class="value-text">
+          Sobald jemand offline geht, schicken wir den Zuschauern direkt weiter zur
+          nächsten Crew — Raids sind bei uns Standard, nicht die Ausnahme.
+        </p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🔥</div>
+        <h3 class="value-title">Echte Vibes</h3>
+        <p class="value-text">
+          Wir kennen uns nicht nur vom Stream — man trifft sich im TS3, zockt
+          zusammen und hat auch abseits der Kamera Kontakt.
+        </p>
+      </div>
+    </div>
   </section>
+
 
   <!-- CREW -->
   <section class="section" id="crew">
@@ -342,11 +394,33 @@
     <div class="members-grid" id="members-container"></div>
   </section>
 
+  <!-- JOIN -->
+  <section class="section" id="join">
+    <div class="join-card">
+      <div class="join-bg"></div>
+      <div class="join-content">
+        <div class="hero-tag" style="margin-bottom:1rem;">⚡ Lust auf Brutal Electric?</div>
+        <h2 class="join-title">DU STREAMST?<br /><span class="accent">KOMM VORBEI.</span></h2>
+        <p class="join-text">
+          Egal ob Affiliate oder noch ganz am Anfang — wenn du Bock auf eine
+          lockere Crew ohne Vertrag und Verpflichtungen hast, schau einfach
+          in unserem TeamSpeak vorbei und meld dich.
+        </p>
+        <div class="join-actions">
+          <a href="ts3server://brutalelectric.online" class="join-btn-primary">
+            TS3 beitreten ↗
+          </a>
+          <span class="join-server">brutalelectric.online</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </div>
 
 <footer>
   Brutal Electric &mdash; Twitch Streamer Crew &middot;
-  Gebaut mit der <a href="https://dev.twitch.tv/docs/embed/everything/" target="_blank">Twitch Embed API</a>
+  <a href="ts3server://brutalelectric.online">TeamSpeak</a>
 </footer>
 
 <script>
@@ -371,40 +445,28 @@
   ];
 
   const liveSet = new Set();
-  const embeds  = {};
+
+
 
   function updateCounter() {
     const n = liveSet.size;
     document.getElementById("live-count-text").textContent =
       n === 0 ? "Niemand live" : `${n} live`;
     document.getElementById("stat-live").textContent = n;
-    document.getElementById("live-sub").textContent =
-      n === 0
-        ? "Gerade ist niemand live — schau später nochmal vorbei!"
-        : `${n} von ${MEMBERS.length} gerade am Streamen`;
   }
 
   function setLive(twitch, online) {
-    const card   = document.getElementById(`card-${twitch}`);
-    const badge  = document.getElementById(`badge-${twitch}`);
-    const desc   = document.getElementById(`desc-${twitch}`);
     const mcard  = document.getElementById(`member-${twitch}`);
     const mring  = document.getElementById(`ring-${twitch}`);
     const mstat  = document.getElementById(`mstat-${twitch}`);
 
     if (online) {
       liveSet.add(twitch);
-      if (card)  { card.classList.add("is-live"); card.style.borderColor = "rgba(255,79,79,0.35)"; }
-      if (badge) badge.style.display = "inline-flex";
-      if (desc)  desc.textContent = "🔴 Gerade live!";
       if (mcard) mcard.classList.add("is-live");
       if (mring) mring.style.display = "block";
-      if (mstat) { mstat.textContent = "Live"; mstat.className = "m-status live"; }
+      if (mstat) { mstat.textContent = "🔴 Live"; mstat.className = "m-status live"; }
     } else {
       liveSet.delete(twitch);
-      if (card)  { card.classList.remove("is-live"); card.style.borderColor = ""; }
-      if (badge) badge.style.display = "none";
-      if (desc)  desc.textContent = MEMBERS.find(m => m.twitch === twitch)?.bio ?? "Offline";
       if (mcard) mcard.classList.remove("is-live");
       if (mring) mring.style.display = "none";
       if (mstat) { mstat.textContent = "Offline"; mstat.className = "m-status"; }
@@ -413,74 +475,10 @@
   }
 
   function buildAll() {
-    const sc = document.getElementById("streams-container");
     const mc = document.getElementById("members-container");
-    sc.innerHTML = "";
     mc.innerHTML = "";
 
-    MEMBERS.forEach((m, i) => {
-
-      // — Stream Card —
-      const card = document.createElement("div");
-      card.className = "stream-card";
-      card.id = `card-${m.twitch}`;
-      card.style.animationDelay = `${i * 0.06}s`;
-
-      const embedDiv = document.createElement("div");
-      embedDiv.className = "stream-embed";
-      embedDiv.id = `embed-${m.twitch}`;
-
-      card.appendChild(embedDiv);
-      card.insertAdjacentHTML("beforeend", `
-        <div class="stream-meta">
-          <div class="s-avatar ${m.color}">${m.initials}</div>
-          <div class="s-info">
-            <div class="s-name-row">
-              <span class="s-name">${m.display}</span>
-              <span class="s-live-badge" id="badge-${m.twitch}">LIVE</span>
-            </div>
-            <div class="s-desc" id="desc-${m.twitch}">${m.bio}</div>
-            <div class="s-footer">
-              <span class="s-cat">${m.tag}</span>
-              <span class="s-link"><a href="https://twitch.tv/${m.twitch}" target="_blank">Kanal öffnen ↗</a></span>
-            </div>
-          </div>
-        </div>
-      `);
-      sc.appendChild(card);
-
-      // — Twitch Embed —
-      try {
-        const embed = new Twitch.Embed(`embed-${m.twitch}`, {
-          width:    "100%",
-          height:   "100%",
-          channel:  m.twitch,
-          layout:   "video",
-          autoplay: false,
-          muted:    true,
-          parent:   [window.location.hostname || "localhost"],
-        });
-
-        embed.addEventListener(Twitch.Embed.VIDEO_READY, () => {
-          const p = embed.getPlayer();
-          p.addEventListener(Twitch.Player.ONLINE,  () => setLive(m.twitch, true));
-          p.addEventListener(Twitch.Player.OFFLINE, () => setLive(m.twitch, false));
-        });
-
-        embeds[m.twitch] = embed;
-      } catch(e) {
-        document.getElementById(`embed-${m.twitch}`).innerHTML = `
-          <div class="stream-embed-fallback">
-            <span style="font-size:1.8rem">📺</span>
-            <span>${m.display}</span>
-            <a href="https://twitch.tv/${m.twitch}" target="_blank"
-               style="color:var(--accent);text-decoration:none;font-size:12px;">
-              Auf Twitch ansehen ↗
-            </a>
-          </div>`;
-      }
-
-      // — Member Card —
+    MEMBERS.forEach((m) => {
       const mcard = document.createElement("a");
       mcard.href = `https://twitch.tv/${m.twitch}`;
       mcard.target = "_blank";
