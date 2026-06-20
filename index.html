@@ -272,6 +272,20 @@
     .join-btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
     .join-server {
       font-size: 12.5px; color: var(--muted); letter-spacing: 0.02em;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .join-server strong { color: var(--text); font-weight: 500; }
+    .copy-btn {
+      font-family: var(--font-body); font-size: 11px; font-weight: 500;
+      color: var(--accent); background: rgba(232,255,71,0.08);
+      border: 1px solid rgba(232,255,71,0.2);
+      padding: 3px 10px; border-radius: 6px;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .copy-btn:hover { background: rgba(232,255,71,0.16); }
+    .join-hint {
+      font-size: 11.5px; color: var(--muted); opacity: 0.7;
+      margin-top: 4px; max-width: 360px; text-align: center;
     }
 
     /* ── FOOTER ── */
@@ -410,7 +424,11 @@
           <a href="ts3server://brutalelectric.online" class="join-btn-primary">
             TS3 beitreten ↗
           </a>
-          <span class="join-server">brutalelectric.online</span>
+          <span class="join-server">
+            Server-Adresse: <strong>brutalelectric.online</strong>
+            <button class="copy-btn" onclick="copyTS3()" id="copy-btn" type="button">Kopieren</button>
+          </span>
+          <span class="join-hint">Öffnet sich nichts? Adresse kopieren und im TeamSpeak-Client unter „Verbinden" einfügen.</span>
         </div>
       </div>
     </div>
@@ -420,7 +438,7 @@
 
 <footer>
   Brutal Electric &mdash; Twitch Streamer Crew &middot;
-  <a href="ts3server://brutalelectric.online">TeamSpeak</a>
+  TeamSpeak: brutalelectric.online
 </footer>
 
 <script>
@@ -502,6 +520,15 @@
   }
 
   buildAll();
+
+  function copyTS3() {
+    navigator.clipboard.writeText("brutalelectric.online").then(() => {
+      const btn = document.getElementById("copy-btn");
+      const original = btn.textContent;
+      btn.textContent = "Kopiert ✓";
+      setTimeout(() => { btn.textContent = original; }, 1800);
+    });
+  }
 </script>
 </body>
 </html>
