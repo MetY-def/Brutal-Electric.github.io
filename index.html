@@ -95,6 +95,7 @@ dialog::backdrop{background:rgba(0,0,0,.82)}
 .slot b{display:block;font:700 22px/1 Teko,sans-serif;letter-spacing:.04em}
 .slot span{color:var(--mute)}
 .none{color:#5f5050;font-size:14px}
+.cal{margin:24px;border:2px solid var(--red);background:#fff}.cal iframe{display:block;width:100%;height:min(70vh,640px);border:0}
 .note{margin:0 24px 24px;color:var(--mute);font-size:14px}
 
 @media(max-width:900px){nav{display:none}.bar{justify-content:space-between}.week{grid-template-columns:1fr}.day{min-height:0}.support{grid-template-columns:1fr}.head{flex-direction:column;gap:4px}}
@@ -265,6 +266,8 @@ a:hover>.go,a.go:hover{background:var(--red);border-color:var(--red)}
 
 <dialog id="sched" aria-labelledby="st">
  <div class="dh"><h2 id="st">STREAM-SCHEDULE</h2><button class="x" id="close" aria-label="Schließen">X</button></div>
+ <div class="cal" id="cal" hidden><iframe id="calFrame" title="Stream-Schedule Kalender"></iframe></div>
+ <p class="note" id="calLink" hidden><a href="#" target="_blank" rel="noopener" style="color:var(--red2);text-decoration:underline">Kalender in neuem Tab öffnen</a></p>
  <div class="week" id="week"></div>
  <p class="note">Änderungen vorbehalten. Aktuelle Zeiten stehen im jeweiligen Twitch-Kanal.</p>
 </dialog>
@@ -316,6 +319,8 @@ const members=[
  {name:"Mitglied 3",role:"Moderator"},{name:"Mitglied 4",role:"Streamer"},
  {name:"Mitglied 5",role:"Mitglied"},{name:"Mitglied 6",role:"Mitglied"}
 ];
+// Google Kalender (öffentlich geteilt): ID des Kalenders; leer lassen = Zeiten aus der Liste unten
+const calendar="7a763ec1a63233ec8c0dc0b8c3dcb06e6d1dc0bce8862b89330240bc11b1373c@group.calendar.google.com";
 // Schedule: d = 1 (Mo) bis 7 (So)
 const slots=[
  {d:2,t:"20:00",s:"Streamer 1",g:"Euro Truck Simulator 2"},
@@ -404,7 +409,9 @@ const heute=(new Date().getDay()+6)%7+1;
 $("week").innerHTML=tage.map((t,i)=>{const d=i+1,l=slots.filter(x=>x.d===d).sort((a,b)=>a.t.localeCompare(b.t));
  return `<div class="day${d===heute?" today":""}"><h3>${t}</h3>${l.length?l.map(x=>`<div class="slot"><b>${esc(x.t)} Uhr</b>${esc(x.s)}<br><span>${esc(x.g)}</span></div>`).join(""):'<div class="none">Kein Stream</div>'}</div>`}).join("");
 const dlg=$("sched");
-document.querySelectorAll("[data-open]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();dlg.showModal()}));
+const calUrl=m=>`https://calendar.google.com/calendar/embed?src=${encodeURIComponent(calendar)}&ctz=Europe%2FBerlin&hl=de&wkst=2&mode=${m}&showTitle=0&showPrint=0&showTz=0&showCalendars=0&showTabs=0`;
+if(calendar){$("week").hidden=true;$("cal").hidden=false;$("calLink").hidden=false;$("calLink").querySelector("a").href=calUrl("WEEK")}
+document.querySelectorAll("[data-open]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();if(calendar&&!$("calFrame").src)$("calFrame").src=calUrl(innerWidth<700?"AGENDA":"WEEK");dlg.showModal()}));
 $("close").onclick=()=>dlg.close();
 dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
 
