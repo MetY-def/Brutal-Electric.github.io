@@ -262,9 +262,10 @@ const news=[
 // Streamer: pic = Profilbild (leer = automatisch oder Anfangsbuchstabe); live/game nur als Rückfall, wenn die Twitch-Abfrage nicht klappt
 const liveCheck=true;
 const streamers=[
- {name:"Streamer 1",twitch:"twitch_name_1",pic:"",live:false,game:""},
- {name:"Streamer 2",twitch:"twitch_name_2",pic:"",live:false,game:""},
- {name:"Streamer 3",twitch:"twitch_name_3",pic:"",live:false,game:""}
+ {name:"Speedjunky2",twitch:"speedjunky2",pic:"",live:false,game:""},
+ {name:"Einfach_Nyla",twitch:"einfach_nyla",pic:"",live:false,game:""},
+ {name:"DJ_Nyla",twitch:"dj_nyla",pic:"",live:false,game:""},
+ {name:"Kuradiele",twitch:"kuradiele_vt",pic:"",live:false,game:""}
 ];
 const members=[
  {name:"Mitglied 1",role:"Clanleitung"},{name:"Mitglied 2",role:"Admin"},
@@ -312,7 +313,7 @@ function renderStreams(){
  const l=[...streamers].sort((a,b)=>(b.live?1:0)-(a.live?1:0));
  $("streamList").innerHTML=l.map(s=>{const p=s.pic||s.picAuto||"";
   return `<div class="sc${s.live?" live":""}"><div class="pic"><span>${esc(s.name[0])}</span>${p?`<img src="${esc(p)}" alt="" onerror="this.remove()">`:""}</div>
-  <h3>${esc(s.twitch)}</h3>
+  <h3>${esc(s.name)}</h3>
   <span class="badge"><i></i>${s.live?"LIVE":"OFFLINE"}</span>
   <span class="sg">${s.live?(s.game?"Spielt: "+esc(s.game):"Streamt gerade"):"Gerade nicht live"}</span>
   <a class="btn${s.live?"":" alt"}" href="https://twitch.tv/${encodeURIComponent(s.twitch)}" target="_blank" rel="noopener">Zum Stream</a></div>`}).join("");
