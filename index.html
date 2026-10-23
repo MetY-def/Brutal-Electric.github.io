@@ -186,6 +186,29 @@ a:hover>.go,a.go:hover{background:var(--red);border-color:var(--red)}
 .hl span{display:block;font:500 28px/1.15 Teko,sans-serif;letter-spacing:.04em;color:#fff;text-shadow:0 0 14px var(--red)}
 @media(max-width:900px){.nlay{grid-template-columns:1fr}.side{position:static}}
 @media(max-width:600px){.nr{grid-template-columns:1fr}.nim{width:100%}.nr .go{justify-self:end}}
+.fbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.fbar .btn{font-size:22px;padding:12px 24px}
+.fform{background:#0f0708;border:1px solid #2e0e11;border-top:3px solid var(--red);padding:20px;margin-bottom:22px;display:grid;gap:14px}
+.fform label{display:block;font:500 18px/1 Teko,sans-serif;letter-spacing:.06em;color:var(--mute);margin-bottom:6px}
+.fform input,.fform textarea{width:100%;background:#0a0506;border:1px solid #3a1a1d;color:var(--ink);font:inherit;padding:12px 14px}
+.fform input:focus,.fform textarea:focus{outline:2px solid var(--red);border-color:var(--red)}
+.fform textarea{min-height:130px;resize:vertical}
+.fform .row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.fform .hint{margin:0}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.topic{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;width:100%;text-align:left;background:#0f0708;border:1px solid #2e0e11;padding:16px 18px;margin-bottom:12px;cursor:pointer;color:inherit;font:inherit;transition:.2s}
+.topic:hover{border-color:var(--red);box-shadow:0 0 18px rgba(227,16,27,.2)}
+.tt{display:block;font:700 28px/1.1 Teko,sans-serif;letter-spacing:.02em;overflow-wrap:anywhere}
+.topic small{color:var(--mute);font-size:14px}
+.cnt{font:700 20px/1 Teko,sans-serif;color:var(--red2);white-space:nowrap}
+.msg{background:#0f0708;border:1px solid #2e0e11;padding:16px 18px;margin-bottom:12px}
+.msg.first{border-top:3px solid var(--red)}
+.msg h3{font-size:34px;margin-bottom:8px;overflow-wrap:anywhere}
+.mh{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--mute);font-size:14px;margin-bottom:8px}
+.mh b{color:var(--ink);font-weight:600}
+.msg p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.back{background:none;border:0;color:var(--red2);cursor:pointer;font:500 20px/1 Teko,sans-serif;letter-spacing:.06em;padding:0;margin-bottom:16px}
+.back:hover{color:#fff}
 </style>
 </head>
 <body>
@@ -193,7 +216,7 @@ a:hover>.go,a.go:hover{background:var(--red);border-color:var(--red)}
  <div class="wrap bar">
   <a class="brand" href="#/">BRUTAL <b><span class="e">∊</span>LECTRIC</b></a>
   <nav aria-label="Hauptmenü">
-   <a href="#/" data-p="start">Start</a><a href="#/streams" data-p="streams">Streams</a><a href="#/news" data-p="news">News</a><a href="#/clan" data-p="clan">Clan</a><a href="#" data-open>Schedule</a>
+   <a href="#/" data-p="start">Start</a><a href="#/streams" data-p="streams">Streams</a><a href="#/news" data-p="news">News</a><a href="#/forum" data-p="forum">Forum</a><a href="#" data-open>Schedule</a>
   </nav>
   <div class="soc" id="soc" aria-label="Social Media"></div>
  </div>
@@ -249,16 +272,17 @@ a:hover>.go,a.go:hover{background:var(--red);border-color:var(--red)}
  </div>
 </div></section></div>
 
-<div id="p-clan" hidden><section><div class="wrap">
- <div class="head"><h2>CLAN-MITGLIEDER</h2><p id="count"></p></div>
- <div class="grid" id="memberList"></div>
+<div id="p-forum" hidden><section><div class="wrap">
+ <div class="nh"><span class="mi" id="fi"></span><div><h2>FORUM</h2><p>Stell Fragen, such Mitspieler oder erzähl uns, was dich beschäftigt. Jeder darf mitschreiben, ganz ohne Anmeldung.</p></div></div>
+ <p class="hint" id="fnote" hidden style="margin:0 0 18px"></p>
+ <div id="fview"></div>
 </div></section></div>
 </main>
 
 <footer><div class="wrap">
  <div class="foot">
   <div><h3>BRUTAL <span class="e">∊</span>LECTRIC</h3><p>Gaming, Streaming, Zusammenhalt.</p></div>
-  <div><h3>Wichtige Links</h3><a href="#/streams">Streams</a><a href="#/news">News</a><a href="#/clan">Clan</a><a href="#" data-open>Stream-Schedule</a></div>
+  <div><h3>Wichtige Links</h3><a href="#/streams">Streams</a><a href="#/news">News</a><a href="#/forum">Forum</a><a href="#" data-open>Stream-Schedule</a></div>
   <div><h3>Kontakt</h3><a href="#" data-discord target="_blank" rel="noopener">Discord</a><a href="#" data-ts>TeamSpeak</a><a href="#" id="ftw" target="_blank" rel="noopener">Twitch</a><a href="#" id="mail"></a></div>
  </div>
  <div class="fb">Brutal <span class="e">∊</span>lectric. Gaming Clan und Streaming-Kollektiv.</div>
@@ -295,7 +319,7 @@ const catColor={"Ankündigung":"#e3101b","Event":"#2563eb","Update":"#7c3aed","C
 const news=[
  {date:"2026-10-03",cat:"Ankündigung",title:"Willkommen bei Brutal Electric!",text:"Unsere Community-Seite ist jetzt online! Hier findest du alle wichtigen Informationen zu Events, Community und vielem mehr. Schön, dass du da bist!",img:"",link:"#/"},
  {date:"2026-10-01",cat:"Event",title:"VRChat Community Abend",text:"Gemeinsam quatschen, neue Leute kennenlernen und einfach eine gute Zeit haben! Alle sind herzlich willkommen. Weitere Infos gibt es im Discord.",img:"",link:discord},
- {date:"2026-09-28",cat:"Update",title:"Neue Bereiche auf der Seite",text:"Streams, News und Clan haben jetzt eigene Seiten. Schau dich gerne um und entdecke alles Neue!",img:"",link:"#/streams"},
+ {date:"2026-09-28",cat:"Update",title:"Neue Bereiche auf der Seite",text:"Streams, News und das Forum haben jetzt eigene Seiten. Schau dich gerne um und entdecke alles Neue!",img:"",link:"#/streams"},
  {date:"2026-09-25",cat:"Community",title:"Werde Teil unserer Community!",text:"Ob VRChat, Gaming oder einfach nur neue Freunde finden: bei Brutal Electric ist jeder willkommen. Tritt unserem Discord bei und sei dabei!",img:"",link:discord}
 ];
 // Spalte "Kurz & Wichtig" (ico: cal, dc, play, chat) und "Community Highlights" (img = Bild, leer = roter Verlauf)
@@ -313,11 +337,6 @@ const streamers=[
  {name:"Einfach_Nyla",twitch:"einfach_nyla",pic:"",live:false,game:""},
  {name:"DJ_Nyla",twitch:"dj_nyla",pic:"",live:false,game:""},
  {name:"Kuradiele",twitch:"kuradiele_vt",pic:"",live:false,game:""}
-];
-const members=[
- {name:"Mitglied 1",role:"Clanleitung"},{name:"Mitglied 2",role:"Admin"},
- {name:"Mitglied 3",role:"Moderator"},{name:"Mitglied 4",role:"Streamer"},
- {name:"Mitglied 5",role:"Mitglied"},{name:"Mitglied 6",role:"Mitglied"}
 ];
 // Google Kalender (öffentlich geteilt): ID des Kalenders; leer lassen = Zeiten aus der Liste unten
 const calendar="7a763ec1a63233ec8c0dc0b8c3dcb06e6d1dc0bce8862b89330240bc11b1373c@group.calendar.google.com";
@@ -399,9 +418,73 @@ $("kurz").innerHTML=kurz.map(k=>`<a class="ki" href="${esc(k.link)}"${lk(k.link)
 const hl=$("hl");hl.innerHTML=highlight.lines.map(l=>`<span>${esc(l)}</span>`).join("");
 if(highlight.img)hl.style.background=`linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.6)),url("${highlight.img}") center/cover`;
 
-/* Clan */
-$("memberList").innerHTML=members.map(m=>`<div class="card"><div class="av">${esc(m.name[0])}</div><h3>${esc(m.name)}</h3><span class="role">${esc(m.role)}</span></div>`).join("");
-$("count").textContent=members.length+" Mitglieder";
+/* Forum */
+// Server fürs Forum (z. B. Supabase, kostenlos): Projekt-URL und öffentlicher anon-Key eintragen. Leer = Demo-Modus nur im eigenen Browser.
+const forum={url:"",key:""};
+const liveForum=!!(forum.url&&forum.key);
+let posts=[],view=null,showForm=false,lastPost=0;
+const fv=$("fview");
+$("fi").innerHTML=ICO.chat.replace('width="18" height="18"','width="28" height="28"');
+const ft=d=>new Date(d).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"});
+const reps=id=>posts.filter(p=>p.parent_id&&String(p.parent_id)===String(id));
+const lastAct=t=>Math.max(+new Date(t.created_at),...reps(t.id).map(r=>+new Date(r.created_at)));
+async function api(method,path,body){
+ const r=await fetch(forum.url+"/rest/v1/"+path,{method,headers:{apikey:forum.key,Authorization:"Bearer "+forum.key,"Content-Type":"application/json",Prefer:"return=minimal"},body:body?JSON.stringify(body):undefined});
+ if(!r.ok)throw new Error(r.status);
+ return method==="GET"?r.json():null;
+}
+async function loadPosts(){
+ $("fnote").hidden=false;
+ if(liveForum){
+  try{posts=await api("GET","posts?select=*&order=created_at.asc&limit=1000");$("fnote").hidden=true}
+  catch(e){$("fnote").textContent="Das Forum konnte gerade nicht geladen werden."}
+ }else{
+  try{posts=JSON.parse(localStorage.getItem("be-forum")||"[]")}catch(e){posts=[]}
+  $("fnote").textContent="Demo-Modus: Beiträge werden vorerst nur in deinem Browser gespeichert. Sobald ein Server eingetragen ist, sehen alle dieselben Beiträge.";
+ }
+ renderForum();
+}
+async function savePost(p){
+ if(liveForum){await api("POST","posts",p);return}
+ p.id=Date.now()+Math.random();p.created_at=new Date().toISOString();posts.push(p);
+ try{localStorage.setItem("be-forum",JSON.stringify(posts))}catch(e){}
+}
+const formHtml=reply=>`<div class="fform">
+ <div><label for="fn">NAME (OPTIONAL)</label><input id="fn" maxlength="30" autocomplete="nickname" placeholder="Gast"></div>
+ ${reply?"":'<div><label for="ftitle">TITEL</label><input id="ftitle" maxlength="100"></div>'}
+ <div><label for="fb">${reply?"ANTWORT":"BEITRAG"}</label><textarea id="fb" maxlength="2000"></textarea></div>
+ <input class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+ <div class="row"><button class="btn" type="button" data-act="send">${reply?"Antworten":"Beitrag posten"}</button><span class="hint" id="fmsg" role="status"></span></div></div>`;
+function renderForum(){
+ if(view){
+  const t=posts.find(p=>String(p.id)===view);
+  if(!t){view=null;return renderForum()}
+  fv.innerHTML='<button class="back" type="button" data-act="back">‹ ZURÜCK ZUR ÜBERSICHT</button>'+[t,...reps(t.id)].map((m,i)=>`<div class="msg${i?"":" first"}">${i?"":`<h3>${esc(t.title)}</h3>`}<div class="mh"><b>${esc(m.name||"Gast")}</b><span>${ft(m.created_at)}</span></div><p>${esc(m.body)}</p></div>`).join("")+formHtml(true);
+  return;
+ }
+ const ts=posts.filter(p=>!p.parent_id).sort((a,b)=>lastAct(b)-lastAct(a));
+ fv.innerHTML=`<div class="fbar"><span class="hint" style="margin:0">${ts.length} ${ts.length===1?"Thema":"Themen"}</span><button class="btn" type="button" data-act="new">${showForm?"Abbrechen":"Neues Thema"}</button></div>`
+  +(showForm?formHtml(false):"")
+  +(ts.length?ts.map(t=>`<button class="topic" type="button" data-act="open" data-id="${esc(t.id)}"><span><span class="tt">${esc(t.title)}</span><small>von ${esc(t.name||"Gast")} am ${ft(t.created_at)}</small></span><span class="cnt">${reps(t.id).length} ${reps(t.id).length===1?"Antwort":"Antworten"}</span></button>`).join(""):'<p class="hint">Noch keine Beiträge. Schreib das erste Thema!</p>');
+}
+async function sendPost(b){
+ const box=b.closest(".fform"),msg=box.querySelector("#fmsg"),reply=!!view;
+ const name=box.querySelector("#fn").value.trim().slice(0,30)||"Gast";
+ const title=reply?null:box.querySelector("#ftitle").value.trim(),body=box.querySelector("#fb").value.trim();
+ if(box.querySelector(".hp").value)return;
+ if((!reply&&title.length<3)||body.length<2){msg.textContent=reply?"Bitte schreib einen Text.":"Bitte Titel und Text ausfüllen.";return}
+ if(Date.now()-lastPost<30000){msg.textContent="Bitte warte kurz, bevor du erneut postest.";return}
+ b.disabled=true;
+ try{await savePost({name,title,body,parent_id:reply?(Number(view)||view):null});lastPost=Date.now();showForm=false;await loadPosts()}
+ catch(e){msg.textContent="Das hat leider nicht geklappt. Bitte versuche es später noch einmal.";b.disabled=false}
+}
+fv.addEventListener("click",e=>{
+ const b=e.target.closest("[data-act]");if(!b)return;const a=b.dataset.act;
+ if(a==="new"){showForm=!showForm;renderForum()}
+ else if(a==="open"){view=b.dataset.id;renderForum();scrollTo(0,0)}
+ else if(a==="back"){view=null;renderForum()}
+ else if(a==="send")sendPost(b);
+});
 
 /* Schedule-Overlay */
 const tage=["Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag","Sonntag"];
@@ -416,13 +499,14 @@ $("close").onclick=()=>dlg.close();
 dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
 
 /* Seiten-Navigation */
-const titles={start:"Brutal ∊lectric",streams:"Streams | Brutal ∊lectric",news:"News | Brutal ∊lectric",clan:"Clan | Brutal ∊lectric"};
+const titles={start:"Brutal ∊lectric",streams:"Streams | Brutal ∊lectric",news:"News | Brutal ∊lectric",forum:"Forum | Brutal ∊lectric"};
 function route(){
  const h=location.hash.replace(/^#\/?/,"")||"start",id=titles[h]?h:"start";
  Object.keys(titles).forEach(p=>$("p-"+p).hidden=p!==id);
  document.querySelectorAll("nav a[data-p]").forEach(a=>a.classList.toggle("on",a.dataset.p===id));
  document.title=titles[id];scrollTo(0,0);
  if(id==="start")tickBuild();
+ if(id==="forum")loadPosts();
 }
 addEventListener("hashchange",route);route();
 if(document.fonts)document.fonts.ready.then(()=>{if(!$("p-start").hidden)tickBuild()});
